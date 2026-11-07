@@ -27,7 +27,26 @@ This project simulates technical support incidents and documents the troubleshoo
 
 ## Lab Environment
 
-*Configuration details and screenshots will be added after setup.*
+
+## Lab Environment
+
+Created a Windows 11 virtual machine using Oracle VirtualBox to provide an isolated environment for simulating and resolving common Windows and network troubleshooting incidents.
+
+### Virtual Machine Configuration
+
+- **Virtualization Platform:** Oracle VirtualBox
+- **Operating System:** Windows 11 (64-bit)
+- **Memory:** 4 GB RAM
+- **Processors:** 2 vCPUs
+- **Storage:** 64 GB virtual disk
+- **Network Configuration:** NAT
+- **Security:** TPM 2.0, EFI, and Secure Boot enabled
+
+### Configuration Screenshot
+
+![VirtualBox VM Configuration](screenshots/01-virtualbox-configuration.png)
+
+The virtual machine will be used to simulate technical support scenarios, investigate their causes, and document troubleshooting procedures and resolutions.
 
 ## Troubleshooting Cases
 

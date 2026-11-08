@@ -14,23 +14,21 @@
 
 ## 1. Incident Summary
 
-### Problem Description
+Simulated a workstation network outage by disabling the Ethernet adapter within Windows, then investigated the resulting local transmission errors.
 
-A Windows 11 workstation experienced a complete loss of network connectivity after its Ethernet adapter was intentionally disabled.
+### Incident at a Glance
 
-This scenario simulated a common IT support incident in which a user cannot access network resources or connect to external services because the network interface has been disabled at the operating system level.
+| Item | Finding |
+|---|---|
+| Reported issue | The workstation lost Ethernet connectivity to its gateway and external IPv4 destinations |
+| Diagnostic evidence | `ipconfig /all` lacked the normal active Ethernet configuration; both ping tests returned `PING: transmit failed. General failure.` |
+| Root cause | Ethernet interface was administratively disabled in Windows Network Connections |
+| Tools used | `ncpa.cpl`, `ipconfig /all`, `ping -4` |
+| Corrective action | Reenabled the Ethernet interface without changing VirtualBox or static TCP/IP settings |
+| Verified result | DHCP configuration returned (`10.0.2.15`, gateway `10.0.2.2`); gateway and external IPv4 pings each received 4/4 replies (0% loss) |
 
-The objective was to investigate the connectivity failure, interpret the diagnostic output, identify the disabled network interface, restore network functionality, and verify successful communication with the default gateway and an external IPv4 address.
+**Key diagnostic distinction:** A local ping transmission error differs from a request that was sent but received no reply.
 
-### Resolution Summary
-
-Identified the disabled Ethernet adapter as the cause of the workstation's connectivity failure.
-
-Network diagnostics showed that Windows could not transmit ICMP Echo Requests, returning the error **"PING: transmit failed. General failure."**
-
-Reenabled the Ethernet adapter through Windows Network Connections, confirmed that the workstation recovered its expected DHCP-assigned IPv4 configuration, and verified successful gateway and external IPv4 communication.
-
-Both connectivity tests completed with 0% packet loss.
 
 ## 2. Technical Environment
 

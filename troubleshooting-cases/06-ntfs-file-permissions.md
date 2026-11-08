@@ -14,31 +14,23 @@
 
 ## 1. Incident Summary
 
-### Problem Description
+Simulated a standard employee being denied access to an internal test document, then used NTFS permissions and command-line diagnostics to restore read-only access.
 
-A Windows 11 workstation was configured to simulate an IT support incident in which a standard employee account could not access a shared folder containing an internal company document.
+### Incident at a Glance
 
-The scenario involved creating a standard user account, examining existing NTFS permissions, deliberately restricting folder access, reproducing an access-denied error, and restoring appropriate permissions.
+| Item | Finding |
+|---|---|
+| Reported issue | Standard account `LabEmployee` could not open `C:\IT-Support-Lab\SharedDocuments` |
+| Diagnostic evidence | Windows displayed `You don't currently have permission to access this folder.`; the folder ACL had been restricted to Administrators and SYSTEM |
+| Root cause | The standard account lacked a suitable NTFS permission entry after broad inherited access was removed |
+| Tools used | Windows Security settings, `icacls`, `whoami`, `dir /b`, Command Prompt |
+| Corrective action | Granted `LabEmployee` Read & Execute access using `icacls` after a graphical permissions error |
+| Verified result | `LabEmployee` opened `Company-Report.txt.txt`; file ACL showed `(I)(RX)`; an append attempt returned `Access is denied.` |
 
-The objective was to provide the employee with sufficient access to open and read the document without allowing unauthorized modifications.
+**Additional investigation:** Windows reported `Failed to enumerate objects in the container` during a permission change. A subsequent filename mismatch was identified through directory listing. Both are documented in the detailed evidence below.
 
-During the investigation, additional problems were encountered while adjusting permissions through Windows Security and referencing the test document from Command Prompt.
+**Testing scope:** The read test and denied append operation verify access behavior for the tested account and document; they are not a comprehensive permissions audit of every object in the folder.
 
-These issues required further troubleshooting using `icacls`, file path verification, and permission testing under the affected user account.
-
-### Resolution Summary
-
-Created a standard Windows account named `LabEmployee` and a test folder at:
-
-`C:\IT-Support-Lab\SharedDocuments`
-
-Restricted NTFS permissions to reproduce an access-denied condition.
-
-After Windows Security encountered an error while applying permissions, used the `icacls` command-line utility to modify access rights.
-
-Verified that `LabEmployee` could open and read the test document while an attempt to append content returned **Access is denied**.
-
-The final configuration preserved administrative access while limiting the standard account to read and execute permissions.
 
 ## 2. Technical Environment
 
@@ -363,7 +355,7 @@ This was a separate troubleshooting issue from the original NTFS access-denied c
 
 ### Evidence 09 — File Path Troubleshooting
 
-![Command-line permissions troubleshooting](https://github.com/raheem-code124/windows-network-troubleshooting-lab/blob/main/screenshots/35c-permission-command-success.png)
+![Command-line permissions troubleshooting](https://github.com/raheem-code124/windows-network-troubleshooting-lab/blob/main/screenshots/35c-file-path-investigation.png)
 
 **Diagnostic Finding:** The command referenced an incorrect filename. Checking the directory listing established the correct document name.
 

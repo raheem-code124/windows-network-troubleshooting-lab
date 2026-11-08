@@ -28,7 +28,7 @@ The Windows 11 virtual machine provided a controlled environment for reproducing
 
 ### Virtual Machine Configuration
 
-![VirtualBox VM Configuration](screenshots/01-virtualbox-configuration.png)
+![VirtualBox Configuration](./screenshots/01-virtualbox-configuration.png)
 
 ### Windows 11 Environment
 

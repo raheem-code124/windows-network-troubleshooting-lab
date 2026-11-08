@@ -283,7 +283,7 @@ Rather than assuming the graphical operation had succeeded, further troubleshoot
 
 ### Evidence 07 — Windows Security Permission Error
 
-![Windows Security error while applying NTFS permissions](https://github.com/raheem-code124/windows-network-troubleshooting-lab/blob/main/screenshots/35c-permission-security-error.png)
+![Windows Security error while applying NTFS permissions](https://github.com/raheem-code124/windows-network-troubleshooting-lab/blob/main/screenshots/35a-permission-security-error.png)
 
 **Observation:** An error occurred during the graphical permission-management process, requiring additional investigation.
 

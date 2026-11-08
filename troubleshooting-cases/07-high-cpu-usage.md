@@ -14,32 +14,21 @@
 
 ## 1. Incident Summary
 
-### Problem Description
+Created a controlled CPU-intensive PowerShell background job, identified its processor usage in Task Manager, and stopped it to verify recovery.
 
-A Windows 11 workstation was used to simulate an IT support incident involving elevated CPU utilization caused by a resource-intensive background process.
+### Incident at a Glance
 
-In a typical support environment, excessive CPU usage can contribute to slow application performance, delayed system responses, and reduced workstation responsiveness.
+| Item | Finding |
+|---|---|
+| Reported issue | Elevated CPU usage during a controlled PowerShell workload |
+| Diagnostic evidence | Task Manager showed Windows PowerShell (2) at **31.2% CPU**, with **35%** total system CPU usage; `Get-Job` confirmed the job was `Running` |
+| Root cause | A deliberately started PowerShell background job repeatedly performed mathematical calculations |
+| Tools used | Windows Task Manager, `Start-Job`, `Get-Job`, `Where-Object`, `Stop-Job` |
+| Corrective action | Stopped the running background job using PowerShell |
+| Verified result | `Get-Job` showed `Stopped`; total CPU usage subsequently measured **3%**, down **32 percentage points** from the active-workload reading |
 
-To reproduce a measurable resource-usage problem, a controlled PowerShell workload was created inside the Windows 11 virtual machine.
+**Testing scope:** These are individual Task Manager observations, not sustained performance averages. The lab did not simulate memory pressure or an unexpected production application failure.
 
-The objective was to monitor system performance, identify the process responsible for CPU consumption, investigate the associated PowerShell background job, stop the workload, and verify that CPU utilization decreased.
-
-### Resolution Summary
-
-Generated a CPU-intensive PowerShell background job and investigated its resource consumption using Windows Task Manager.
-
-During the investigation, Task Manager showed:
-
-- Windows PowerShell process group: **31.2% CPU**
-- Total system CPU utilization: **35%**
-
-PowerShell's job-management commands confirmed that the background job was running.
-
-Stopped the active background job using `Stop-Job` and verified that its status changed to Stopped.
-
-A final Task Manager inspection showed total CPU utilization had decreased to approximately **3%**.
-
-**Resolution Scope:** The controlled CPU workload was stopped and reduced CPU utilization was verified. No sustained memory-pressure scenario or production application failure was tested.
 
 ## 2. Technical Environment
 

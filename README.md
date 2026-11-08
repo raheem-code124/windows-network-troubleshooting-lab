@@ -7,6 +7,7 @@ A Windows 11 virtual lab designed to simulate, diagnose, and resolve common IT s
 Each scenario includes diagnostic testing, root-cause analysis, corrective actions, and screenshot evidence of the results.
 
 **Project Status:** Completed 7 hands-on IT support troubleshooting scenarios
+
 ---
 
 ## Project Overview

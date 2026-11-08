@@ -14,19 +14,21 @@
 
 ## 1. Incident Summary
 
-### Problem Description
+Simulated a DNS configuration error on a Windows 11 workstation and used separate DNS and IP connectivity tests to isolate the failure.
 
-A Windows 11 workstation was intentionally configured with an incorrect IPv4 DNS server to simulate a desktop support incident involving failed DNS queries.
+### Incident at a Glance
 
-The objective was to investigate the network configuration, determine whether external IP connectivity remained functional, isolate the cause of the DNS failure, and restore the correct network settings.
+| Item | Finding |
+|---|---|
+| Reported issue | A direct lookup through the configured IPv4 DNS server timed out |
+| Diagnostic evidence | `nslookup google.com 192.0.2.1` timed out, while `ping 1.1.1.1` received 4/4 replies (0% loss) |
+| Root cause | Preferred IPv4 DNS server was manually set to the nonresponsive address `192.0.2.1` |
+| Tools used | Windows adapter settings, `ipconfig /all`, `nslookup`, `ping`, `ipconfig /flushdns` |
+| Corrective action | Restored automatic DNS assignment and cleared the DNS resolver cache |
+| Verified result | `nslookup google.com` succeeded using the restored configuration; external IPv4 connectivity remained functional |
 
-### Resolution Summary
+**Testing scope:** The timeout proves that the specified DNS server did not respond. It does not establish that every DNS resolution method available to Windows was unavailable.
 
-Identified a manually configured DNS server (`192.0.2.1`) that failed to respond to DNS queries.
-
-Diagnostic testing confirmed that the specified DNS server timed out while the workstation maintained successful external IPv4 connectivity.
-
-Restored automatic DNS configuration, cleared the local DNS resolver cache, and verified that domain-name resolution functioned successfully after the corrective action.
 
 ## 2. Technical Environment
 

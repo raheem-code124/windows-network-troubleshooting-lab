@@ -49,7 +49,7 @@ Each case study documents the simulated incident, diagnostic commands, observed 
 | Operating System | Windows 11 Pro, 64-bit |
 | Workstation | `IT-SUPPORT-PC01` |
 | Memory | 4 GB RAM |
-| Virtual Storage | 64 GB |
+| Virtual Storage | 80 GB |
 | Primary Network Mode | NAT |
 | Baseline IPv4 Address | `10.0.2.15` |
 | Subnet Mask | `255.255.255.0` |

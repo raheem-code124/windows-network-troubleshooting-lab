@@ -14,29 +14,21 @@
 
 ## 1. Incident Summary
 
-### Problem Description
+Simulated a Windows printing-service incident by stopping the Print Spooler and verifying its state using both the Services console and PowerShell.
 
-A Windows 11 workstation was used to simulate an IT support incident involving a stopped Windows Print Spooler service.
+### Incident at a Glance
 
-The Print Spooler is responsible for managing print jobs and communicating with the Windows printing system. When the service is stopped, applications and connected printers may be unable to process printing requests normally.
+| Item | Finding |
+|---|---|
+| Reported issue | Windows Print Spooler service was stopped |
+| Diagnostic evidence | `Get-Service -Name Spooler` returned `Stopped`; the Services console showed the same service state |
+| Root cause | The service had been intentionally stopped; its startup type remained `Automatic` |
+| Tools used | `services.msc`, `Get-Service`, `Start-Service` |
+| Corrective action | Restarted the service with `Start-Service -Name Spooler` |
+| Verified result | PowerShell and Windows Services both showed `Running` afterward; startup type remained `Automatic` |
 
-In this exercise, the Print Spooler service was intentionally stopped to reproduce a service-level failure.
+**Testing scope:** Service recovery was verified. No printer was installed, so end-to-end document printing was not tested.
 
-The objective was to investigate the service's operational status, confirm the failure using Windows administrative tools and PowerShell, restart the service, and verify that it returned to a running state.
-
-### Resolution Summary
-
-Identified the Print Spooler service (`Spooler`) in Windows Services and confirmed that its startup type was configured as Automatic.
-
-Intentionally stopped the service and verified its operational state using the PowerShell command `Get-Service -Name Spooler`.
-
-The diagnostic output confirmed that the service was stopped.
-
-Restored the service using `Start-Service -Name Spooler` and verified that its status changed to Running.
-
-A final inspection through Windows Services confirmed that the Print Spooler was running with its startup type set to Automatic.
-
-**Resolution Scope:** The Windows service was successfully recovered. End-to-end printing functionality was not tested because no printer was installed in the lab.
 
 ## 2. Technical Environment
 

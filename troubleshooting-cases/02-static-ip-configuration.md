@@ -14,26 +14,21 @@
 
 ## 1. Incident Summary
 
-### Problem Description
+Simulated a loss of network connectivity by assigning a static IPv4 address and default gateway that did not match the workstation's VirtualBox NAT network.
 
-A Windows 11 workstation was intentionally configured with an incorrect static IPv4 address and default gateway to simulate a common IT support incident involving loss of network connectivity.
+### Incident at a Glance
 
-The workstation originally received its network configuration automatically through DHCP. To reproduce the incident, the automatic addressing configuration was replaced with manually assigned values that did not match the virtual network.
+| Item | Finding |
+|---|---|
+| Reported issue | The workstation could not successfully reach its normal gateway or an external IPv4 address |
+| Diagnostic evidence | `ipconfig /all` showed `10.0.1.15/24` and gateway `10.0.2.254`; gateway testing produced a `Destination host unreachable` response, and external ping had 100% packet loss |
+| Root cause | Incorrect static address and gateway replaced the expected DHCP configuration on `10.0.2.0/24` |
+| Tools used | Windows IPv4 adapter settings, `ipconfig /all`, `ping -4` |
+| Corrective action | Restored automatic IPv4 and DNS configuration through DHCP |
+| Verified result | DHCP assigned `10.0.2.15` with gateway `10.0.2.2`; both gateway and external IPv4 pings received 4/4 replies (0% loss) |
 
-The objective was to investigate the resulting connectivity failure, identify the incorrect TCP/IP settings, restore valid network configuration, and verify communication with the local gateway and an external IPv4 address.
+**Key diagnostic distinction:** The gateway test's ICMP unreachable message was not a successful Echo Reply from the target.
 
-### Resolution Summary
-
-Identified two incorrect network settings:
-
-- **Static IPv4 address:** `10.0.1.15`
-- **Default gateway:** `10.0.2.254`
-
-The assigned IPv4 address placed the workstation in a different subnet from its normal VirtualBox NAT network. The configured gateway was also incorrect and outside the workstation's assigned `/24` subnet.
-
-Diagnostic testing showed that the workstation could not successfully communicate with the known-working gateway or an external IPv4 address.
-
-Restored automatic IP and DNS configuration, confirmed successful DHCP assignment, and verified that local and external IPv4 connectivity were functioning again.
 
 ## 2. Technical Environment
 

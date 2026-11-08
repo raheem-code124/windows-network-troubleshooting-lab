@@ -323,7 +323,7 @@ File and folder ACLs must be inspected separately when necessary, and the affect
 
 ### Evidence 08 — ICACLS Permission Command
 
-![ICACLS command successfully modifying folder permissions](https://github.com/raheem-code124/windows-network-troubleshooting-lab/blob/main/screenshots/35a-permission-command-success.png)
+![ICACLS command successfully modifying folder permissions](https://github.com/raheem-code124/windows-network-troubleshooting-lab/blob/main/screenshots/35b-permission-command-success.png)
 
 **Corrective Action:** Used `icacls` to grant the standard employee account Read & Execute access.
 
@@ -363,7 +363,7 @@ This was a separate troubleshooting issue from the original NTFS access-denied c
 
 ### Evidence 09 — File Path Troubleshooting
 
-![Command-line file path error during permissions investigation](https://github.com/raheem-code124/windows-network-troubleshooting-lab/blob/main/screenshots/35b-permission-command-error.png)
+![Command-line permissions troubleshooting](https://github.com/raheem-code124/windows-network-troubleshooting-lab/blob/main/screenshots/35c-permission-command-success.png)
 
 **Diagnostic Finding:** The command referenced an incorrect filename. Checking the directory listing established the correct document name.
 

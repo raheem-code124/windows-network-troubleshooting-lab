@@ -32,7 +32,7 @@ The Windows 11 virtual machine provided a controlled environment for reproducing
 
 ### Windows 11 Environment
 
-![Windows 11 Desktop](screenshots/02-windows-desktop.png)
+![Windows 11 Desktop](https://github.com/raheem-code124/windows-network-troubleshooting-lab/blob/main/screenshots/02-windows-desktop.png)
 
 ## Tools & Technologies
 

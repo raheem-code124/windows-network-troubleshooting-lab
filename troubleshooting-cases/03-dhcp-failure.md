@@ -14,25 +14,21 @@
 
 ## 1. Incident Summary
 
-### Problem Description
+Simulated DHCP unavailability by moving the Windows 11 virtual machine from NAT networking to an isolated internal network without a DHCP server.
 
-A Windows 11 workstation was placed on an isolated virtual network without an available DHCP server to simulate a common IT support incident involving failure to obtain an IPv4 address automatically.
+### Incident at a Glance
 
-Under normal conditions, the workstation received its IPv4 configuration from the DHCP service associated with Oracle VirtualBox NAT networking.
+| Item | Finding |
+|---|---|
+| Reported issue | The workstation failed to obtain an IPv4 lease automatically |
+| Diagnostic evidence | `ipconfig /renew` timed out; `ipconfig /all` showed APIPA address `169.254.88.53/16` with no IPv4 default gateway |
+| Root cause | VirtualBox adapter was connected to `DHCP-FAIL-LAB`, an internal network without an available DHCP server |
+| Tools used | VirtualBox network settings, `ipconfig /release`, `ipconfig /renew`, `ipconfig /all`, `ping -4`, `nslookup` |
+| Corrective action | Restored VirtualBox NAT networking and renewed the DHCP lease |
+| Verified result | Workstation received `10.0.2.15`, gateway `10.0.2.2`, and DNS `10.0.0.1`; gateway and external pings succeeded, as did DNS resolution |
 
-When the network configuration was changed to an internal network without DHCP service, Windows was unable to obtain a lease and assigned itself an Automatic Private IP Addressing (APIPA) address.
+**Testing scope:** The lab reproduced the symptoms of DHCP unavailability through network isolation; it did not simulate or diagnose a crashed production DHCP server.
 
-The objective was to investigate the failed DHCP renewal, identify the significance of the APIPA address and missing default gateway, restore access to the normal DHCP environment, and verify that the workstation recovered its expected network configuration.
-
-### Resolution Summary
-
-Diagnosed DHCP unavailability after the workstation failed to obtain an IPv4 lease and received an APIPA address of `169.254.88.53`.
-
-The failure was reproduced by connecting the virtual machine to an isolated VirtualBox internal network named `DHCP-FAIL-LAB`.
-
-Restored the virtual network adapter to NAT, successfully renewed the DHCP lease, and confirmed that the workstation received its expected IPv4 address, subnet mask, default gateway, and DNS server.
-
-Follow-up connectivity and DNS tests verified successful recovery.
 
 ## 2. Technical Environment
 
